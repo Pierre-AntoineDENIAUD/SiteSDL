@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soirée de l'été 2024</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #000000, #333333); /* Dégradé noir */
+    color: #ffffff; /* Couleur du texte */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  header {
+    padding: 20px;
+    text-align: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 36px;
+  }
+
+  .container {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .container p {
+    font-size: 18px;
+  }
+
+  .countdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .countdown-item {
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    user-select: none; /* Empêche la sélection du texte */
+    pointer-events: none; /* Désactive les événements de la souris */
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Texte en blanc */
+  }
+
+  .blue { background-color: #0099CC; }
+  .yellow { background-color: #FFCC00; }
+  .black { background-color: #000; }
+  .green { background-color: #339900; }
+  .red { background-color: #CC0000; }
+
+  .label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+  footer {
+    background-color: #222; /* Couleur de fond du footer */
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .footer-text {
+    font-size: 14px;
+    color: #fff;
+  }
+
+  footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+
+  /* Responsive YouTube Video */
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .video-container iframe, .video-container object, .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+</head>
+<body>
+  <!-- Image au-dessus du titre -->
+  <img src="C:\Users\P-A\Pictures\Screenshots\Capture d'écran 2024-03-17 195119.png" alt="Image de la soirée" style="width: 70%;">
+
+  <header>
+    <h1>Soirée de l'été 2024</h1>
+  </header>
+
+  <div class="container">
+    <p>Bienvenue à la soirée de l'été 2024 !</p>
+    <p>Nous vous attendons pour une soirée inoubliable.</p>
+  </div>
+
+  <div class="countdown-container">
+    <div>
+      <div class="countdown-item blue" id="days">00</div>
+      <div class="label">Jours</div>
+    </div>
+    <div>
+      <div class="countdown-item yellow" id="hours">00</div>
+      <div class="label">Heures</div>
+    </div>
+    <div>
+      <div class="countdown-item black" id="minutes">00</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div>
+      <div class="countdown-item green" id="seconds">00</div>
+      <div class="label">Secondes</div>
+    </div>
+    <div>
+      <div class="countdown-item red" id="milliseconds">000</div>
+      <div class="label">Millisecondes</div>
+    </div>
+  </div>
+
+  <!-- Responsive YouTube Video -->
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/NE-JR95XzKc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <footer>
+    <p class="footer-text">
+      <a href="contact.html">Nous contacter</a>
+      <a href="histoire.html">Notre histoire</a>
+    </p>
+    <p class="footer-text">© 2024 Soirée de l'été. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    // Date de fin du compte à rebours (année, mois (0-11), jour, heure, minute, seconde)
+    const endDate = new Date('2024-08-03T18:59:59.999').getTime();
+
+    // Mettre à jour le compte à rebours chaque milliseconde
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const milliseconds = distance % 1000;
+
+      document.getElementById('days').innerHTML = padZero(days);
+      document.getElementById('hours').innerHTML = padZero(hours);
+      document.getElementById('minutes').innerHTML = padZero(minutes);
+      document.getElementById('seconds').innerHTML = padZero(seconds);
+      document.getElementById('milliseconds').innerHTML = padZero(milliseconds);
+
+      // Vérifier si le compte à rebours est terminé
+      if (distance < 0) {
+        clearInterval(interval);
+        document.getElementById('days').innerHTML = "00";
+        document.getElementById('hours').innerHTML = "00";
+        document.getElementById('minutes').innerHTML = "00";
+        document.getElementById('seconds').innerHTML = "00";
+        document.getElementById('milliseconds').innerHTML = "000";
+      }
+    }, 1); // Répéter chaque milliseconde
+
+    // Fonction pour ajouter un zéro devant les chiffres si nécessaire
+    function padZero(number) {
+      return (number < 10 ? '0' : '') + number;
+    }
+  </script>
+
+</body>
+</html>
